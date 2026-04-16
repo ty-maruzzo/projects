@@ -50,19 +50,24 @@ while True:
             num1 = float(input("First number: "))
             num2 = float(input("Second number: "))
             if ask_calc == "add":
-                print(add(num1, num2))
+                answer = add(num1,num2)
+                print(answer)
             elif ask_calc == "subtract":
-                print(subtract(num1, num2))
+                answer = subtract(num1,num2)
+                print(answer)
             elif ask_calc == "multiply":
-                print(multiply(num1, num2))
+                answer = multiply(num1,num2)
+                print(answer)
             elif ask_calc == "divide":
-                print(divide(num1, num2))
+                answer = divide(num1,num2)
+                print(answer)
         except ValueError:
             print("Invalid input. Please enter numbers.")
+           
     elif ask_calc == "square":
         try:
-            num = float(input("Number to square: "))
-            print(square(num))
+                num = float(input("Number to square: "))
+                print(square(num))
         except ValueError:
             print("Invalid input. Please enter a number.")
     elif ask_calc == "square root":
@@ -87,3 +92,55 @@ while True:
             print("Invalid input. Please enter an integer.")
     else:
         print("Invalid option. Try again.")
+    break
+while True:
+    ask_calc = input("Do you want to keep going? Y/N ").lower().strip()
+    temp = answer
+    if ask_calc == "y":
+        print("Options: add, subtract, multiply, divide, square, square root, convert (binary/hexadecimal/octal), quit")
+        ask_calc = input("What do you need? ").lower().strip()
+    if ask_calc == "n":
+        break
+    try:
+        if ask_calc == "add":
+            num = float(input("Enter Number :"))
+            answer = add(temp,num)
+            print(answer)
+        elif ask_calc == "subtract":
+            num = float(input("Enter Number :"))
+            answer = subtract(temp,num)
+            print(answer)
+        elif ask_calc == "divide":
+            num = float(input("Enter Number :"))
+            answer = divide(temp,num)
+            print(answer)
+        elif ask_calc == "multiply":
+            num = float(input("Enter Number :"))
+            answer = multiply(temp,num)
+            print(answer)
+        elif ask_calc == "convert":
+            temp = int(answer)
+            ask_convert = input("To binary, hexadecimal, or octal? ").lower().strip()
+            try :
+                if ask_convert == "binary":
+                    answer_binary = binary(temp)
+                    print(answer_binary)
+                elif ask_convert in ["hexadecimal", "hex"]:
+                    answer_hex = hexadecimal(temp)
+                    print(answer_hex)
+                elif ask_convert == "octal":
+                    answer_octal = octal(temp)
+                    print(answer_octal)
+                else:
+                    print("Invalid conversion type.")
+            except ValueError:
+                print("Please Enter Valid Input")
+        elif ask_calc == "square":
+            answer = square(temp)
+            print(answer)
+        elif ask_calc == "square root":
+            answer = sqrt(temp)
+            print(answer)
+    except ValueError:
+        print("Invalid input. Please enter an integer.")
+    
