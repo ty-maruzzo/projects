@@ -14,6 +14,9 @@ def similar_answer(user_input, correct_answer, threshold=.81):
     - WordNet synonyms
     - edit distance similarity
     """
+    if user_input == "quit":
+        print("Exiting the quiz. Goodbye!")
+        exit()
     if user_input == "":
         return False
     user_input = user_input.lower().strip()
@@ -53,8 +56,16 @@ def quiz():
                 "Who gained control of the Roman Republic and established the Roman Empire?": "Julius Caesar", 
                 "Who became the first emperor of the Roman Empire?": "Augustus", 
                 "Who invented the printing press?": "Johannes Gutenberg",
-                  "What african country was never colonized?": "Ethiopia"
-        
+                  "What african country was never colonized?": "Ethiopia",
+                  "Who Invented the World Wide Web?" : "Tim Berners-Lee",
+                    "What year did the Berlin Wall fall?": "1989",
+                      "Who was the first person to step on the moon?": "Neil Armstrong",
+                        "What year did the United States declare independence?": "1776",
+                            "Who was the first president of the United States?": "George Washington",
+                                "What year did World War II end?": "1945",
+                                "Who was the leader of the Soviet Union during World War II?": "Joseph Stalin",
+                                    "What year did the Great Depression start?": "1929",
+                                    "Greek God who was the god of the sea?": "Poseidon",
     }
     
     score = 0
@@ -67,5 +78,5 @@ def quiz():
             print(f"Wrong! The correct answer is {answer}.")
     
     print(f"Your final score is {score}/{len(questions)}.")
-
+print("Welcome to the History Quiz! Type 'quit' at any time to exit.")
 quiz()
