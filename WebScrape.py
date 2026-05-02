@@ -1,41 +1,43 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
-
-search =["Zeus", "Hera", "Poseidon", "Demeter", "Athena", "Apollon",
+god =["Zeus", "Hera", "Poseidon", "Demeter", "Athena", "Apollon",
     "Artemis", "Ares", "Hephaistos", "Aphrodite", "Hermes",
      "Dionysos"]
 data = []
 headers = {"user-agent": "Chrome 147 on macOS (Monterey)"}
 
 
-for i in search:
+for i in god:
     url = 'https://www.theoi.com/Olympios/' + str(i) + ".html"
     with requests.get(url,headers = headers) as f:
-        soup = BeautifulSoup(f.text,"lxml") 
-        print(url)
-        print(f.status_code)
-        paras = [a.text.strip() for a in soup.find_all('p')]
-        data.append(paras)
+        soup = BeautifulSoup(f.text,"lxml")
+        
+        print(f'Information of {i} is shown here: ')
         ency_tag = soup.find(id='Encyclopedia')
         if ency_tag:
             ency = ency_tag.find_next('p')
+            #print(ency)
         else:
             print("No Encyclopedia id found")
-        myth_tag_athena = soup.find('h3', string="MYTHS")
-        if myth_tag_athena:
-            myth = myth_tag_athena.find_next('p')
-            myth2 = myth.find_next('p')
-            print(myth2.text)
-        myth_tag = soup.find('h2', string ="MYTHS")
-        myth_tag_hermes = soup.find('h2', string = 'HERMES MYTHS')
-        if myth_tag_hermes:
-            myth = myth_tag_hermes.find_next('p')
-            print(myth.text)
+        passage_ency =" ".join(ency.text.split()[:27])
+        print(passage_ency)
+        myth_tag = soup.find(['h2', 'h3'], string=["MYTHS", "HERMES MYTHS"])
         if myth_tag:
             myth = myth_tag.find_next('p')
-            print(myth.text)
-            if myth and "famous myths" in myth.text:
+            not_myth = myth.find(text = re.compile("famous myths"))
+            if not_myth:
                 myth = myth.find_next('p')
-                print(myth.text if myth else "No myth content found")
+            passage_myth = " ".join(myth.text.split()[:27])
+            print(f' Myths of the God include : {passage_myth}')
+        family_tag = soup.find('h2', id = 'Family')
+        if family_tag:
+            if i == "Aphrodite":
+                print("She was born of a sea foam")
+                continue
+            family = family_tag.find_next('p')
+            parents =" ".join(family.text.split()[:4])
+            print(f'Parents of {i} were {parents}' if family else 'No Family content found')
+        
         
