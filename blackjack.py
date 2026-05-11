@@ -46,15 +46,13 @@ if ask_user == 'y':
         hand.append(player_hand)
         print(f'Player has a  {player_hand[1]} of {player_hand[0]}\n')
         deck.remove(player_hand)
-        print(f'Dealer has {dealer_hand_shown[1]} of {dealer_hand_shown[0]} \n ')
-        print('dealer has a hidden card\n')
+        print(f'Dealer has {dealer_hand_shown[1]} of {dealer_hand_shown[0]}')
+        print('Dealer has a hidden card\n')
         dealer_hand_score = calculate_hand_score(dealer_hand)
 if ask_user == 'n':
     exit()
-hand = hand
-dealer_hand = dealer_hand
-while True:
-    ask_user_card = input('Hit or Stand?').lower()
+while True:#this runs always
+    ask_user_card = input('Hit or Stand? ').lower()
     if ask_user_card =='hit':
         player_hit = random.choice(deck)
         print(f'player has a {player_hit[1]} of {player_hit[0]}')
@@ -64,33 +62,36 @@ while True:
         print(f'Total Score: {player_hand_score}')
         if player_hand_score > 21:
             print("Game Over")
-            print("Dealer Wins")
+            print("Dealer Wins!")
             break
-    dealer_hand_score = dealer_hand_score
-    player_hand_score = player_hand_score
-    if ask_user_card == 'stand': 
+        if player_hand_score == 21:
+            print("Game Over")
+            print("Player Wins!")
+    if ask_user_card == 'stand': #game ends no exceptions
         print("Game End \n")
         print("Player Score \n")
         for suit,rank in hand:
             print(f'Player has {rank} of {suit}')
         print(f'Player has a total score of:  {player_hand_score}')
+        
         print('\n\n\n')
-        if dealer_hand_score >= 16:
+        while dealer_hand_score <= 16:#drawing dealer
             print("Dealer is now drawing")
-            dealer_hand = dealer_hand.append(random.choice(deck))
-            print(dealer_hand)
-            #dealer_hand_score = calculate_hand_score(dealer_hand)
-        print("Dealers Cards")
-        print(hand)
-        print(dealer_hand)
-        for suit,rank in dealer_hand:
-            print(f'Dealer has {rank} of {suit} \n')
+            dealer_hit = random.choice(deck)
+            dealer_hand.append(dealer_hit)
+            dealer_hand_score = calculate_hand_score(dealer_hand)
+            deck.remove(dealer_hit)
+        print('\n')
+        for suit,rank in dealer_hand:#print dealer score hand his hand
+            print(f'Dealer has {rank} of {suit}')
         print(f'Dealer has a total score of: {dealer_hand_score}')
-        if dealer_hand_score == player_hand_score:
+        if dealer_hand_score > 21:
+            print(f'Player Wins with total score of {player_hand_score} and  dealer\'s score {dealer_hand_score} is over 21')
+        elif dealer_hand_score == player_hand_score:
             print("Player and Dealer has same score, its a Tie! ")
-        elif player_hand_score > dealer_hand_score:
+        elif player_hand_score > dealer_hand_score and player_hand_score <=21:
             print('Player Wins! ')
-        elif dealer_hand_score > player_hand_score:
+        elif dealer_hand_score > player_hand_score and dealer_hand_score<= 21:
             print('Dealer Wins!')
-
+        break
         
