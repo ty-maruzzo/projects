@@ -8,7 +8,8 @@ def todolist():
         todolist.append(task)
         #print(f"Task '{task}' added to the to-do list.")
         print(f"Task '{task}' added to the to-do list.")
-    return print(todolist)
-todolist()
-print("Your to-do list:")
+    return todolist
+tasks = todolist()
+for task in tasks:
+    print(f'Your task is : {task}')
 

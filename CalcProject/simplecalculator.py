@@ -118,8 +118,7 @@ while True:
             num = float(input("Enter Number :"))
             answer = multiply(temp,num)
             print(answer)
-        elif ask_calc == "convert":
-            temp = int(answer)
+        elif ask_calc == "convert": 
             ask_convert = input("To binary, hexadecimal, or octal? ").lower().strip()
             try :
                 if ask_convert == "binary":
